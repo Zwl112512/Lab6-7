@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "44eb9df5-351e-4c8e-8ca3-c4a03b31b65c",
+		"name": "Lab6 API Testing - Articles & Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44208060",
+		"_collection_link": "https://echocheung.postman.co/workspace/EchoCheung's-Workspace~8aeb84cc-99fd-468f-8008-d333c01a4365/collection/44208060-44eb9df5-351e-4c8e-8ca3-c4a03b31b65c?action=share&source=collection_link&creator=44208060"
+	},
+	"item": [
+		{
+			"name": "GET /articles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/articles",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /articles/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/articles/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /articles",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Post title\",\n  \"alltext\": \"Full content\",\n  \"summary\": \"Summary...\",\n  \"published\": true,\n  \"authorid\": 1\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/articles",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /articles/:id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Updated title\",\n  \"summary\": \"Updated summary\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/articles/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /articles/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/articles/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"articles",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /users/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Tom\",\n  \"lastName\": \"Lee\",\n  \"username\": \"tomlee\",\n  \"password\": \"123456\",\n  \"passwordSalt\": \"salt\",\n  \"email\": \"tom@example.com\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /users/:id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"updated@example.com\",\n  \"firstName\": \"Updated Tom\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /users/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

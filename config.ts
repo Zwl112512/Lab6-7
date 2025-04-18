@@ -1,9 +1,11 @@
-export const config = {
-    host: 'localhost',
-    port: 5432,
-    user: 'postgres',
-    password: '12345',
-    database: 'cw-api',
-    connection_limit: 100
-  }
-  
+const config = {
+  host: 'localhost',
+  port: 5432,
+  username: 'postgres',     // ✅ 改为 username
+  password: '12345',
+  database: 'postgres',
+  dialect: 'postgres',      // ✅ 加上 dialect
+  logging: false            // 可选：关闭SQL输出日志
+};
+
+export default config;

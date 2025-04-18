@@ -1,9 +1,9 @@
 export const config = {
-    host: 'your-db-host',
+    host: 'localhost',
     port: 5432,
-    user: 'your-db-username',
-    password: 'your-db-password',
-    database: 'your-db-name',
+    user: 'postgres',
+    password: '12345',
+    database: 'cw-api',
     connection_limit: 100
   }
   

@@ -112,3 +112,178 @@ By: EchoCheung
 Date: 2025/04/18  
 ```
 
+
+
+---
+
+```markdown
+# Lab7 API Testing - Validation & Authorization
+
+This project is a RESTful API built with **Koa.js + TypeScript + PostgreSQL**, focusing on input validation, user authentication, and access control. It includes schema-based validation using `jsonschema`, Basic Authentication, and a protected route with role detection.
+
+---
+
+```
+
+cw/
+├── app.ts                  # Entry point
+├── routes/
+│   ├── public.ts           # Public GET routes
+│   ├── private.ts          # Auth-protected CRUD routes
+│   ├── users.ts            # User creation route with validation
+│   └── special.ts          # Role-based route (/special)
+├── controllers/
+│   ├── auth.ts             # BasicAuth middleware
+│   └── validation.ts       # JSON Schema validators
+├── schemas/
+│   ├── userSchema.ts       # User schema
+│   └── articleSchema.ts    # Article schema
+├── models/
+│   ├── users.ts
+│   └── articles.ts
+├── types/                  # Type declarations
+├── tsconfig.json
+└── package.json
+
+````
+
+---
+
+## 🚀 How to Start
+
+```bash
+npm install
+npx ts-node app.ts
+````
+
+Server will run at:
+
+> 📍 `http://localhost:3000`
+
+Ensure your PostgreSQL is running and contains a `cw-api` database with `users` and `articles` tables.
+
+---
+
+## 🔐 Authentication
+
+* Basic Authentication (`Authorization` tab in Postman)
+* Username and password are verified against the database `users` table.
+* Example credentials (pre-inserted into DB):
+
+  * **Username:** `admin`
+  * **Password:** `admin123`
+
+---
+
+## 🧪 API Routes Overview
+
+### 🔓 Public Routes
+
+| Method | Endpoint                      | Description       |
+| ------ | ----------------------------- | ----------------- |
+| GET    | `/api/v1/public/articles`     | List all articles |
+| GET    | `/api/v1/public/articles/:id` | Get article by ID |
+
+---
+
+### 🔒 Private Routes (Basic Auth)
+
+| Method | Endpoint                       | Description    |
+| ------ | ------------------------------ | -------------- |
+| POST   | `/api/v1/private/articles`     | Create article |
+| PUT    | `/api/v1/private/articles/:id` | Update article |
+| DELETE | `/api/v1/private/articles/:id` | Delete article |
+
+All routes validate the body with JSON Schema. Invalid structure returns 400 with error details.
+
+---
+
+### 👤 User Route (with validation)
+
+| Method | Endpoint | Description     |
+| ------ | -------- | --------------- |
+| POST   | `/users` | Create new user |
+
+#### Example User Body
+
+```json
+{
+  "firstname": "Tom",
+  "lastname": "Lee",
+  "username": "tomlee",
+  "password": "abc123",
+  "passwordsalt": "salt123",
+  "email": "tom@example.com",
+  "about": "Test user",
+  "avatarurl": "https://example.com/avatar.jpg"
+}
+```
+
+---
+
+### ⭐ Special Route (Role Detection)
+
+| Method | Endpoint   | Description                      |
+| ------ | ---------- | -------------------------------- |
+| GET    | `/special` | Returns role (`admin` or `user`) |
+
+This route uses Basic Auth to identify the user and respond with their role.
+
+#### Example Response
+
+```json
+{
+  "message": "You are authenticated!",
+  "user": {
+    "id": 1,
+    "username": "admin",
+    ...
+  },
+  "role": "admin"
+}
+```
+
+---
+
+## ✅ JSON Schema Validation
+
+Implemented using the `jsonschema` library.
+
+* `controllers/validation.ts` exports a `validate(schema)` middleware
+* Schemas are stored in `/schemas/`
+* Applied to both `/users` and `/articles` POST and PUT routes
+
+---
+
+## 🧪 Postman Collection
+
+> ✅ Collection name: `Lab7 API`
+
+Includes all:
+
+* Public GETs
+* Protected POST/PUT/DELETE with Basic Auth
+* `/special` role route
+* Body validation errors
+
+To export:
+Click on the collection → `...` → `Export` → Choose JSON v2 → Save
+
+---
+
+## 🛠️ Tips
+
+* Restart with `npx ts-node app.ts` if schema or route changes
+* Use Postman’s Authorization tab for Basic Auth
+* Use DBeaver to inspect inserted data or table structure
+
+---
+
+Created for Coursework Lab7
+By: EchoCheung
+Date: 2025/05/16
+
+```
+
+
+

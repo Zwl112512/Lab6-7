@@ -1,27 +1,12 @@
-// routes/users.ts
 import Router from 'koa-router';
 import * as model from '../models/users';
+import { validate } from '../controllers/validation';
+import { userSchema } from '../schemas/userSchema';
+import passport from 'koa-passport';
 
 const router = new Router();
 
-router.get('/users', async (ctx, next) => {
-  let users = await model.getAll();
-  ctx.body = users.length ? users : {};
-  await next();
-});
-
-router.get('/users/:id', async (ctx, next) => {
-  let id = ctx.params.id;
-  let user = await model.getById(id);
-  if (user.length) {
-    ctx.body = user[0];
-  } else {
-    ctx.status = 404;
-  }
-  await next();
-});
-
-router.post('/users', async (ctx, next) => {
+router.post('/users', validate(userSchema), async (ctx, next) => {
   const body = ctx.request.body;
   let result = await model.add(body);
   if (result.status == 201) {
@@ -29,26 +14,27 @@ router.post('/users', async (ctx, next) => {
     ctx.body = body;
   } else {
     ctx.status = 500;
-    ctx.body = { err: "insert user failed" };
+    ctx.body = { err: 'insert user failed' };
   }
   await next();
 });
 
-router.put('/users/:id', async (ctx, next) => {
+router.put('/users/:id', validate(userSchema), async (ctx, next) => {
   const id = Number(ctx.params.id);
   const body = ctx.request.body;
   let result = await model.update(id, body);
   if (result.status == 200) {
     ctx.status = 200;
-    ctx.body = { msg: "updated" };
+    ctx.body = { msg: 'updated' };
   } else {
     ctx.status = 500;
-    ctx.body = { err: "update user failed" };
+    ctx.body = { err: 'update user failed' };
   }
   await next();
 });
 
-router.delete('/users/:id', async (ctx, next) => {
+
+router.delete('/users/:id', passport.authenticate('basic', { session: false }), async (ctx, next) => {
   const id = Number(ctx.params.id);
   let result = await model.remove(id);
   if (result.status == 200) {

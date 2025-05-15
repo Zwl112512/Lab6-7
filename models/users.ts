@@ -61,3 +61,9 @@ export const remove = async (id: number) => {
 }
 
 
+export const findByUsername = async (username: string) => {
+  const query = 'SELECT * FROM users WHERE username = ?';
+  const result = await db.run_query(query, [username]);
+  return result;
+};
+

@@ -285,5 +285,234 @@ Date: 2025/05/16
 
 ```
 
+lab10
+
+
+```
+
+lab10/
+├── app.ts                       # Entry point
+├── routes/
+│   ├── articles.ts              # Article CRUD routes
+│   ├── users.ts                 # User CRUD routes
+│   ├── public.ts                # Public routes (no auth)
+│   ├── private.ts               # JWT protected CRUD routes
+│   ├── special.ts               # Role-based protected route
+│   ├── login.ts                 # JWT login endpoint
+│   └── register.ts              # User registration endpoint
+├── controllers/
+│   ├── authJwt.ts               # JWT middleware
+│   ├── auth.ts                  # BasicAuth (deprecated)
+│   └── validation.ts            # JSON Schema validator middleware
+├── schemas/
+│   ├── userSchema.ts            # User schema validation
+│   └── articleSchema.ts         # Article schema validation
+├── models/
+│   ├── users.ts                 # User DB operations
+│   └── articles.ts              # Article DB operations
+├── helpers/
+│   ├── database.ts              # Database helper methods
+│   ├── password.ts              # Password hashing methods
+│   └── jwt.ts                   # JWT generation method
+├── types/                       # TypeScript definitions
+├── config.ts                    # Configuration settings
+├── tsconfig.json
+├── package.json
+└── README.md
+
+````
+
+---
+
+## 🚀 Getting Started
+
+**Install dependencies:**
+```bash
+npm install
+````
+
+**Run the server:**
+
+```bash
+npx ts-node app.ts
+```
+
+Server will run at:
+
+> 📍 `http://localhost:3000`
+
+Ensure PostgreSQL is running, and database is properly set.
+
+---
+
+## 🔑 JWT Authentication (Lab10)
+
+JWT authentication is implemented, replacing Basic Auth for enhanced security.
+
+### 🔐 Endpoints:
+
+| Method | Endpoint    | Description                | Auth Required |
+| ------ | ----------- | -------------------------- | ------------- |
+| POST   | `/login`    | Login, returns JWT token   | ❌ No          |
+| POST   | `/register` | User registration          | ❌ No          |
+| GET    | `/special`  | Protected route (JWT auth) | ✅ Yes         |
+
+---
+
+### ✅ JWT Login Example (POST `/login`):
+
+**Request Body**:
+
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+**Response**:
+
+```json
+{
+  "token": "your.jwt.token",
+  "user": {
+    "id": 7,
+    "username": "admin",
+    "role": "admin"
+  }
+}
+```
+
+---
+
+### 🔒 JWT Protected Endpoint (GET `/special`):
+
+**Headers**:
+
+```
+Authorization: Bearer <your.jwt.token>
+```
+
+**Response**:
+
+```json
+{
+  "message": "🎉 You are authenticated!",
+  "user": {
+    "id": 7,
+    "username": "admin",
+    "iat": 1747409798,
+    "exp": 1747413398
+  }
+}
+```
+
+---
+
+## 🧾 User Registration Endpoint (POST `/register`)
+
+Creates a new user with hashed password and salt.
+
+**Request**:
+
+```json
+{
+  "username": "newuser12",
+  "password": "abc123",
+  "firstname": "Echo2",
+  "lastname": "Tester",
+  "email": "newuser@example.com"
+}
+```
+
+**Response (Success)**:
+
+```json
+{
+  "message": "User registered successfully",
+  "username": "newuser12"
+}
+```
+
+---
+
+## 🛡️ Security (Lab10)
+
+* **Password hashing** (SHA-256 + Salt)
+* **JWT** for secure, stateless authentication
+* **Validation** with JSON Schema
+* **Sensitive fields** (`password`, `passwordsalt`) excluded from responses.
+
+---
+
+## 📖 OpenAPI (Swagger) Documentation (Lab10)
+
+API documentation using OpenAPI / Swagger provides interactive API reference.
+
+* Generate `openapi.yaml`
+* Use tools like [Redoc](https://github.com/Redocly/redoc) to render documentation interactively.
+
+---
+
+## 🧪 Complete API Route Overview (All Labs Combined)
+
+| Method | Endpoint        | Description        | Authentication |
+| ------ | --------------- | ------------------ | -------------- |
+| GET    | `/articles`     | Get all articles   | ❌ No           |
+| GET    | `/articles/:id` | Get article by ID  | ❌ No           |
+| POST   | `/articles`     | Create new article | ✅ JWT required |
+| PUT    | `/articles/:id` | Update article     | ✅ JWT required |
+| DELETE | `/articles/:id` | Delete article     | ✅ JWT required |
+| GET    | `/users`        | Get all users      | ✅ JWT required |
+| GET    | `/users/:id`    | Get user by ID     | ✅ JWT required |
+| POST   | `/register`     | Register new user  | ❌ No           |
+| POST   | `/login`        | Login (JWT token)  | ❌ No           |
+| GET    | `/special`      | Protected route    | ✅ JWT required |
+
+---
+
+## 🧪 Postman Collections
+
+Organized into three collections:
+
+* ✅ **Lab6 API Testing**: CRUD articles/users (basic)
+* ✅ **Lab7 API Testing**: Validation & Basic Auth (deprecated)
+* ✅ **Lab10 API Testing**: JWT Auth, Secure Registration, Advanced Security
+
+Export collections:
+
+```
+Postman → Collection → "..." → Export → JSON v2
+```
+
+---
+
+## 🛠️ Tips for Debugging & Usage
+
+* JWT expires: Check timestamp (`exp`)
+* Run: `npx ts-node app.ts` for live debug
+* Use **Postman Authorization → Bearer Token** mode
+* Validate JSON request body structure (see schemas)
+
+---
+
+## 📌 Checklist of Features (Lab10)
+
+* [x] ✅ JWT-based authentication
+* [x] ✅ Secure password hashing and salting
+* [x] ✅ User registration route (`/register`)
+* [x] ✅ Sensitive info excluded from responses
+* [x] ✅ Schema validation for API requests
+* [x] ✅ OpenAPI documentation integration
+
+---
+
+Created for Coursework Lab6, Lab7 & Lab10
+By: EchoCheung
+Date: 2025/05/16
+
+```
+```
+
 
 

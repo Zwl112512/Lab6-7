@@ -1,16 +1,13 @@
 // routes/special.ts
 import Router from 'koa-router';
-import { basicAuth } from '../controllers/auth';
+import { jwtAuth } from '../controllers/authJwt';
 
 const router = new Router();
 
-router.get('/special', basicAuth, async (ctx) => {
-  const user = ctx.state.user;
-
+router.get('/special', jwtAuth, async (ctx) => {
   ctx.body = {
-    message: 'You are authenticated!',
-    user: user,
-    role: user.username === 'admin' ? 'admin' : 'user'  // 判断角色
+    message: '🎉 You are authenticated!',
+    user: ctx.state.user
   };
 });
 

@@ -21,9 +21,7 @@ export const add = async (user: any) => {
   let keys = Object.keys(user);
   let values = Object.values(user);
   let key = keys.join(',');
-  let param = '';
-  for (let i = 0; i < values.length; i++) { param += '?,'; }
-  param = param.slice(0, -1);
+  let param = keys.map(() => '?').join(',');
   let query = `INSERT INTO users (${key}) VALUES (${param})`;
   try {
     await db.run_insert(query, values);
@@ -32,6 +30,7 @@ export const add = async (user: any) => {
     return err;
   }
 }
+
 
 // 更新用户
 export const update = async (id: number, user: any) => {
@@ -64,6 +63,7 @@ export const remove = async (id: number) => {
 export const findByUsername = async (username: string) => {
   const query = 'SELECT * FROM users WHERE username = ?';
   const result = await db.run_query(query, [username]);
-  return result;
+  return result[0]; // ✅ 只返回第一笔数据
 };
+
 
